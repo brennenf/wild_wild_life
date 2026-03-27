@@ -159,6 +159,89 @@ function buildPhotoEntry(file, existing) {
   return entry;
 }
 
+function escapeXml(value) {
+  return String(value || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+}
+
+function rssDate(value) {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? new Date().toUTCString() : date.toUTCString();
+}
+
+function getPhotoLink(photo) {
+  return `/?photo=${encodeURIComponent(photo.id)}`;
+}
+
+function getPhotoUrl(photo) {
+  return `/photos/${encodeURIComponent(photo.filename)}`;
+}
+
+function getPhotoFileSize(photo) {
+  try {
+    const stats = fs.statSync(path.join(photosDir, photo.filename));
+    return stats.size;
+  } catch (error) {
+    return 0;
+  }
+}
+
+function generateRss(photos) {
+  const sortedPhotos = [...photos].sort((a, b) => {
+    const aDate = new Date(a.dateTaken || a.date || 0).getTime();
+    const bDate = new Date(b.dateTaken || b.date || 0).getTime();
+    return bDate - aDate;
+  });
+
+  const lastBuildDate = sortedPhotos.length
+    ? rssDate(sortedPhotos[0].dateTaken || sortedPhotos[0].date)
+    : new Date().toUTCString();
+
+  const items = sortedPhotos
+    .map((photo) => {
+      const title = escapeXml(photo.title || path.basename(photo.filename, path.extname(photo.filename)));
+      const description = escapeXml(photo.description || '');
+      const link = escapeXml(getPhotoLink(photo));
+      const guid = escapeXml(photo.id || photo.filename);
+      const pubDate = photo.dateTaken ? rssDate(photo.dateTaken) : rssDate(photo.date || new Date());
+      const enclosureUrl = escapeXml(getPhotoUrl(photo));
+      const mimeType = path.extname(photo.filename).toLowerCase() === '.jpg' || path.extname(photo.filename).toLowerCase() === '.jpeg'
+        ? 'image/jpeg'
+        : 'image/png';
+      const length = getPhotoFileSize(photo);
+
+      return `    <item>
+      <title>${title}</title>
+      <link>${link}</link>
+      <guid isPermaLink="false">${guid}</guid>
+      <pubDate>${pubDate}</pubDate>
+      <description>${description}</description>
+      <enclosure url="${enclosureUrl}" length="${length}" type="${mimeType}" />
+    </item>`;
+    })
+    .join('\n');
+
+  const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Don't Disturb the Wildlife</title>
+    <link>/</link>
+    <description>Latest images from the wildlife gallery.</description>
+    <language>en-us</language>
+    <lastBuildDate>${lastBuildDate}</lastBuildDate>
+    <atom:link href="/rss.xml" rel="self" type="application/rss+xml" />
+${items}
+  </channel>
+</rss>`;
+
+  fs.writeFileSync(path.join(__dirname, '..', 'rss.xml'), rssXml + '\n', 'utf8');
+  console.log(`Generated rss.xml with ${sortedPhotos.length} items.`);
+}
+
 function main() {
   const existingPhotos = readPhotosJson();
   const existingByFilename = new Map(existingPhotos.map((photo) => [photo.filename, photo]));
@@ -180,6 +263,7 @@ function main() {
 
   fs.writeFileSync(photosJsonPath, JSON.stringify(updatedPhotos, null, 2) + '\n', 'utf8');
   console.log(`Updated ${updatedPhotos.length} photo entries in photos.json.`);
+  generateRss(updatedPhotos);
 }
 
 main();

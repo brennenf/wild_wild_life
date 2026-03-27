@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Don't Disturb the Wildlife</title>
+    <link>/</link>
+    <description>Latest images from the wildlife gallery.</description>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 27 Mar 2026 04:44:43 GMT</lastBuildDate>
+    <atom:link href="/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Nature&apos;s Canvas</title>
+      <link>/?photo=2</link>
+      <guid isPermaLink="false">2</guid>
+      <pubDate>Fri, 27 Mar 2026 04:44:43 GMT</pubDate>
+      <description>Untitled</description>
+      <enclosure url="/photos/IMG_5796.jpg" length="1004394" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Final Frame</title>
+      <link>/?photo=9</link>
+      <guid isPermaLink="false">9</guid>
+      <pubDate>Wed, 25 Mar 2026 00:36:50 GMT</pubDate>
+      <description>Conclusion of series</description>
+      <enclosure url="/photos/_BFD2217.jpg" length="1125936" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Environmental Shot</title>
+      <link>/?photo=8</link>
+      <guid isPermaLink="false">8</guid>
+      <pubDate>Wed, 25 Mar 2026 00:36:22 GMT</pubDate>
+      <description>Scene capture</description>
+      <enclosure url="/photos/_BFD2215.jpg" length="2528523" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Detail Work</title>
+      <link>/?photo=7</link>
+      <guid isPermaLink="false">7</guid>
+      <pubDate>Sun, 22 Mar 2026 21:47:07 GMT</pubDate>
+      <description>Close perspective</description>
+      <enclosure url="/photos/_BFD2183.jpg" length="1520160" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Another Moment</title>
+      <link>/?photo=4</link>
+      <guid isPermaLink="false">4</guid>
+      <pubDate>Mon, 02 Feb 2026 17:11:34 GMT</pubDate>
+      <description>From the event series</description>
+      <enclosure url="/photos/NO_FUSION_LIVE_0202_001.jpg" length="1089280" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Live Performance</title>
+      <link>/?photo=3</link>
+      <guid isPermaLink="false">3</guid>
+      <pubDate>Sat, 17 Jan 2026 20:43:10 GMT</pubDate>
+      <description>Captured during a live event</description>
+      <enclosure url="/photos/NO_FUSION_LIVE_0117_001.jpg" length="2930969" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Composition</title>
+      <link>/?photo=6</link>
+      <guid isPermaLink="false">6</guid>
+      <pubDate>Thu, 01 Jan 2026 21:14:37 GMT</pubDate>
+      <description>Artistic capture</description>
+      <enclosure url="/photos/_BFD2003.jpg" length="4168187" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Photo Series</title>
+      <link>/?photo=5</link>
+      <guid isPermaLink="false">5</guid>
+      <pubDate>Thu, 01 Jan 2026 21:13:21 GMT</pubDate>
+      <description>Part of the collection</description>
+      <enclosure url="/photos/_BFD1993.jpg" length="4104607" type="image/jpeg" />
+    </item>
+    <item>
+      <title>Wildlife Moment</title>
+      <link>/?photo=1</link>
+      <guid isPermaLink="false">1</guid>
+      <pubDate>Thu, 28 Aug 2025 01:38:55 GMT</pubDate>
+      <description>A captured moment from the wild</description>
+      <enclosure url="/photos/IDG_20250827_183855_712.jpg" length="665949" type="image/jpeg" />
+    </item>
+  </channel>
+</rss>
