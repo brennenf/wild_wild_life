@@ -1,0 +1,12 @@
+* text=auto
+
+# Image files - treat as binary
+*.jpg binary
+*.jpeg binary
+*.png binary
+*.gif binary
+*.webp binary
+
+# Ensure JSON stays as text
+*.json text eol=lf
+*.html text eol=lf
