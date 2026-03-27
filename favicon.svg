@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img">
+  <title>Wildlife Bird</title>
+  <rect width="64" height="64" rx="12" ry="12" fill="#0b1620"/>
+  <path d="M20 38c3-8 12-12 20-10 3 1 6 3 8 6 2 3 1 7-1 10-2 3-5 5-8 6-5 1-10 0-15-3-3-2-5-5-4-9z" fill="#f9d161"/>
+  <path d="M26 32c5-2 10-1 13 3 2 3 2 7 0 10-2 3-6 4-10 3-3-1-6-3-8-6-2-3-2-6 0-10z" fill="#ffffff"/>
+  <circle cx="36" cy="34" r="2.5" fill="#0b1620"/>
+  <path d="M29 29c-2-2-5-1-7 1-1 1-2 3-1 4" stroke="#0b1620" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M38 24c4-2 8-1 11 3" stroke="#f9d161" stroke-width="4" stroke-linecap="round" fill="none"/>
+</svg>
