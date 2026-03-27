@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wildlife Gallery by Brennen F</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+        background: #000;
+        color: #fff;
+        overflow-x: hidden;
+      }
+
+      /* Glass Box Style */
+      .glass-box {
+        background: rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+
+      /* Top Navigation Bar */
+      .top-nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+        z-index: 2000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .top-nav.hide-ui {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .top-nav h1 {
+        font-size: 2em;
+        font-weight: 700;
+        font-style: italic;
+        text-transform: lowercase;
+        margin: 0;
+        transition: font-size 0.2s ease;
+        line-height: 1;
+      }
+
+      .top-nav a.title-link {
+        color: #fff;
+        text-decoration: none;
+        line-height: 1;
+      }
+
+      .top-nav a.title-link:hover {
+        opacity: 0.8;
+      }
+
+      @media (max-width: 950px) {
+        .top-nav a.title-link {
+          cursor: pointer;
+        }
+      }
+
+      .top-nav.detail-view h1 {
+        font-size: 1.3em;
+      }
+
+      .scroll-to-top {
+        position: absolute;
+        left: 40px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        cursor: pointer;
+        font-size: 1.5em;
+        color: #fff;
+        text-decoration: none;
+        user-select: none;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+      }
+
+      .scroll-to-top.visible {
+        opacity: 0.5;
+      }
+
+      .scroll-to-top.visible:hover {
+        opacity: 1;
+      }
+
+      .scroll-to-top.hide-for-modal {
+        visibility: hidden;
+      }
+
+      .add-info-btn {
+        position: absolute;
+        right: 40px;
+        opacity: 0.5;
+        transition: opacity 0.3s;
+        cursor: pointer;
+        font-size: 1.5em;
+        color: #fff;
+        text-decoration: none;
+        user-select: none;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+      }
+
+      .add-info-btn:hover {
+        opacity: 1;
+      }
+
+      /* Back Arrow (for detail view) */
+      .back-arrow {
+        position: absolute;
+        left: 40px;
+        opacity: 1;
+        cursor: pointer;
+        font-size: 1.5em;
+        color: #fff;
+        text-decoration: none;
+        user-select: none;
+        line-height: 1;
+        display: flex;
+        align-items: center;
+      }
+
+      .back-arrow:hover {
+        color: #ccc;
+      }
+
+      /* Info Modal */
+      .info-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.7);
+        z-index: 3000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .info-modal.active {
+        display: flex;
+      }
+
+      .info-modal-content {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        height: 80vh;
+        padding: 45px;
+        border: 1px solid white;
+        overflow-y: auto;
+      }
+
+      .info-modal-content h2 {
+        font-size: 1.5em;
+        font-weight: 400;
+        margin-bottom: 10px;
+      }
+
+      .info-modal-content p,
+      .info-modal-content ul {
+        font-size: 1em;
+        line-height: 1.5em;
+        margin: 10px 0px;
+      }
+
+      .info-modal-content li {
+        font-size: 1em;
+        line-height: 1.5em;
+      }
+
+      .info-modal-content ul {
+        margin-left: 10px;
+      }
+
+      .info-modal-content a {
+        color: #fff;
+        font-weight: 700;
+        text-decoration: underline;
+      }
+
+      .info-modal-content a:hover {
+        text-decoration: none;
+      }
+
+      .info-modal-text {
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        color: #fff;
+      }
+
+      .info-modal-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        font-size: 1.5em;
+        color: #fff;
+        cursor: pointer;
+        user-select: none;
+        padding: 5px 10px;
+      }
+
+      @media (max-width: 950px) {
+        .info-modal-close {
+          top: auto;
+          bottom: 15px;
+        }
+      }
+
+      .info-modal-close:hover {
+        color: #ccc;
+      }
+
+      /* Configuration Screen */
+      .config-screen {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+
+      .config-form {
+        background: #1a1a1a;
+        border-radius: 12px;
+        padding: 3rem;
+        max-width: 500px;
+        width: 100%;
+      }
+
+      .config-form h1 {
+        font-size: 2rem;
+        font-weight: 400;
+        margin-bottom: 2rem;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        color: #ccc;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 400;
+      }
+
+      .form-group input {
+        width: 100%;
+        padding: 0.75rem;
+        background: #2a2a2a;
+        border: 1px solid #444;
+        border-radius: 6px;
+        color: #fff;
+        font-size: 1rem;
+        font-family: "Roboto", sans-serif;
+        font-weight: 400;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: #3b82f6;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 0.75rem;
+        background: #3b82f6;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        font-size: 1rem;
+        font-weight: 400;
+        font-family: "Roboto", sans-serif;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .btn:hover {
+        background: #2563eb;
+      }
+
+      .help-text {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #333;
+        font-size: 0.75rem;
+        color: #888;
+        line-height: 1.6;
+        font-weight: 400;
+      }
+
+      .help-text a {
+        color: #3b82f6;
+        text-decoration: none;
+      }
+
+      /* Loading Animation */
+      .loading {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .spinner {
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(255, 255, 255, 0.1);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* Error State */
+      .error {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        color: #ef4444;
+      }
+
+      /* Photo Grid */
+      .photo-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+        min-height: 100vh;
+        padding-top: 80px;
+        position: relative;
+      }
+
+      .photo-grid.hide-for-modal {
+        visibility: hidden;
+      }
+
+      @media (max-width: 950px) {
+        .photo-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* Grid Loading Animation */
+      .grid-loading {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .grid-loading-spinner {
+        width: 60px;
+        height: 60px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .photo-item {
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        width: 100%;
+        background: #1a1a1a;
+      }
+
+      .photo-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+
+      .photo-item:hover img {
+        transform: scale(1.05);
+      }
+
+      .photo-item::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0);
+        transition: background 0.3s ease;
+        pointer-events: none;
+      }
+
+      .photo-item:hover::after {
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      /* Single Photo View */
+      .photo-modal {
+        position: fixed;
+        inset: 0;
+        background: #000;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        opacity: 0;
+        transition: opacity 0.1s ease;
+      }
+
+      .photo-modal.active {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .photo-modal.fade-in {
+        opacity: 1;
+      }
+
+      .modal-image-container {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .modal-image-loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
+
+      .modal-image-loading-spinner {
+        width: 60px;
+        height: 60px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .modal-image-fullwidth {
+        width: 100%;
+        height: 100vh;
+        object-fit: contain;
+        position: relative;
+        z-index: 2;
+        transition: opacity 0.3s ease;
+      }
+
+      /* Navigation Areas */
+      .nav-area {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        width: 50%;
+        z-index: 1005;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+      }
+
+      .nav-area-left {
+        left: 0;
+        justify-content: flex-start;
+        padding-left: 2rem;
+      }
+
+      .nav-area-right {
+        right: 0;
+        justify-content: flex-end;
+        padding-right: 2rem;
+      }
+
+      .nav-chevron {
+        padding: 20px;
+        font-size: 2rem;
+        color: #fff;
+        opacity: 0;
+        transition: opacity 0.2s;
+        pointer-events: none;
+      }
+
+      .nav-area:hover .nav-chevron {
+        opacity: 1;
+      }
+
+      @media (max-width: 950px) {
+        .nav-chevron {
+          display: none;
+        }
+      }
+
+      /* Modal Info Overlay */
+      .modal-info-overlay {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 20px 70px;
+        max-width: 50vw;
+        text-align: center;
+        z-index: 1020;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      @media (max-width: 950px) {
+        .modal-info-overlay {
+          left: 0;
+          right: 0;
+          transform: none;
+          max-width: 100%;
+          width: 100%;
+          padding: 20px 50px;
+        }
+      }
+
+      .modal-info-overlay.hide-ui {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .modal-info-content {
+        position: relative;
+      }
+
+      .modal-info-overlay a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+      }
+
+      .modal-info-overlay a:hover {
+        opacity: 0.9;
+      }
+
+      .modal-info-overlay h2 {
+        font-size: 1.75rem;
+        margin: 0 0 15px 0;
+        color: #fff;
+        font-weight: 400;
+      }
+
+      .modal-info-overlay .description {
+        font-size: 0.95rem;
+        margin: 10px 0;
+        color: #fff;
+        line-height: 1.5;
+        font-weight: 400;
+        white-space: pre-line;
+        text-align: left;
+      }
+
+      .modal-info-overlay .meta {
+        font-size: 0.75rem;
+        margin-top: 10px;
+        color: #ccc;
+        font-weight: 400;
+        text-align: left;
+      }
+
+      .modal-info-overlay .meta:hover {
+        text-decoration: underline;
+      }
+
+      /* UI Toggle Button */
+      .ui-toggle {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        user-select: none;
+        line-height: 1;
+        transition: opacity 0.2s;
+        z-index: 10;
+      }
+
+      .ui-toggle:hover {
+        opacity: 0.7;
+      }
+
+      /* Show UI Button */
+      .show-ui-btn {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1020;
+        cursor: pointer;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+      }
+
+      .show-ui-btn.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .show-ui-btn:hover {
+        opacity: 0.8;
+      }
+
+      .hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Top Navigation -->
+    <div class="top-nav glass-box" id="topNav">
+      <a
+        href="#"
+        class="scroll-to-top"
+        id="scrollToTop"
+        onclick="scrollToTop(event)"
+        >↑</a
+      >
+      <a
+        href="#"
+        class="back-arrow hidden"
+        id="backArrow"
+        onclick="closeModal(event)"
+        >←</a
+      >
+      <a href="/" class="title-link" id="titleLink">
+        <h1>wild wild life</h1>
+      </a>
+      <a
+        href="#"
+        class="add-info-btn"
+        id="addInfoBtn"
+        onclick="openInfoModal(event)"
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+          ></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <line x1="10" y1="9" x2="8" y2="9"></line>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Info Modal -->
+    <div id="infoModal" class="info-modal">
+      <div class="info-modal-content glass-box">
+        <div class="info-modal-close" onclick="closeInfoModal()">×</div>
+        <div class="info-modal-text" id="infoModalText">
+          sample text goes here
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Loading State -->
+    <div id="loadingScreen" class="loading">
+      <div class="spinner"></div>
+    </div>
+
+    <!-- Error State -->
+    <div id="errorScreen" class="error hidden">
+      <div style="font-size: 1.25rem">Error loading photos</div>
+      <div id="errorMessage"></div>
+      <button
+        class="btn"
+        style="max-width: 200px; margin-top: 1rem"
+        onclick="location.reload()"
+      >
+        Try Again
+      </button>
+    </div>
+
+    <!-- Photo Grid -->
+    <div id="photoGrid" class="photo-grid hidden">
+      <div class="grid-loading" id="gridLoading">
+        <div class="grid-loading-spinner"></div>
+      </div>
+    </div>
+
+    <!-- Photo Modal -->
+    <div id="photoModal" class="photo-modal">
+      <!-- Navigation Areas -->
+      <div class="nav-area nav-area-left" id="navLeft" onclick="prevPhoto()">
+        <div class="nav-chevron glass-box">‹</div>
+      </div>
+      <div class="nav-area nav-area-right" id="navRight" onclick="nextPhoto()">
+        <div class="nav-chevron glass-box">›</div>
+      </div>
+
+      <div class="modal-image-container">
+        <div class="modal-image-loading" id="modalImageLoading">
+          <div class="modal-image-loading-spinner"></div>
+        </div>
+        <img id="modalImage" class="modal-image-fullwidth" alt="" />
+      </div>
+
+      <!-- Modal Info Overlay with Toggle -->
+      <div class="modal-info-overlay glass-box" id="modalInfoOverlay">
+        <div class="ui-toggle" onclick="toggleUI()">
+          <svg
+            width="30"
+            height="30"
+            viewBox="0 0 50 50"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="25" cy="25" r="25" fill="#000" opacity="0.4" />
+            <path
+              d="M20 23 L25 28 L30 23"
+              stroke="#fff"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </div>
+        <div class="modal-info-content">
+          <h2 id="modalTitle"></h2>
+          <div id="modalDescription" class="description"></div>
+          <a id="modalLink" href="#" target="_blank">
+            <div id="modalMeta" class="meta"></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Show UI Button -->
+      <div class="show-ui-btn" id="showUIBtn" onclick="toggleUI()">
+        <svg
+          width="50"
+          height="50"
+          viewBox="0 0 50 50"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <circle cx="25" cy="25" r="25" fill="#000" opacity="0.4" />
+          <path
+            d="M20 27 L25 22 L30 27"
+            stroke="#fff"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <script>
+      let photos = [];
+      let currentPhotoIndex = 0;
+      let loadedPhotosCount = 0;
+      const INITIAL_BATCH_SIZE = 4;
+      const BATCH_SIZE = 20;
+      const MAX_PHOTOS = 200;
+      let uiVisible = true;
+      let isFirstBatch = true;
+
+      // Touch/swipe handling
+      let touchStartX = 0;
+      let touchStartY = 0;
+      let touchEndX = 0;
+      let touchEndY = 0;
+      const minSwipeDistance = 50;
+
+      // Handle touch start
+      function handleTouchStart(e) {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }
+
+      // Handle touch end
+      function handleTouchEnd(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+      }
+
+      // Determine swipe direction and execute action
+      function handleSwipe() {
+        const modal = document.getElementById("photoModal");
+        const isModalOpen = modal.classList.contains("active");
+
+        if (!isModalOpen) return;
+
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
+
+        // Horizontal swipe (left/right for prev/next photo)
+        if (absDeltaX > absDeltaY && absDeltaX > minSwipeDistance) {
+          if (deltaX > 0) {
+            // Swipe right - previous photo
+            prevPhoto();
+          } else {
+            // Swipe left - next photo
+            nextPhoto();
+          }
+        }
+        // Vertical swipe (up/down for show/hide UI)
+        else if (absDeltaY > absDeltaX && absDeltaY > minSwipeDistance) {
+          if (deltaY > 0) {
+            // Swipe down - hide UI
+            hideUI();
+          } else {
+            // Swipe up - show UI
+            showUI();
+          }
+        }
+      }
+
+      // Load about.txt file
+      function loadAboutText() {
+        fetch("about.txt")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("about.txt not found");
+            }
+            return response.text();
+          })
+          .then((text) => {
+            document.getElementById("infoModalText").innerHTML = text;
+          })
+          .catch((error) => {
+            console.log("Could not load about.txt:", error);
+            // Keep default text if file not found
+          });
+      }
+
+      // Add touch event listeners to photo modal
+      window.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("photoModal");
+        modal.addEventListener("touchstart", handleTouchStart, false);
+        modal.addEventListener("touchend", handleTouchEnd, false);
+
+        // Load about.txt
+        loadAboutText();
+
+        // Handle title link click on mobile
+        const titleLink = document.getElementById("titleLink");
+        titleLink.addEventListener("click", function (e) {
+          const isModalOpen = document
+            .getElementById("photoModal")
+            .classList.contains("active");
+
+          if (isModalOpen) {
+            // In detail view, close modal and return to index
+            e.preventDefault();
+            closeModal();
+          } else {
+            // On index view, prevent default and do nothing
+            e.preventDefault();
+          }
+        });
+
+        // Auto-load photos on page load
+        fetchPhotos();
+      });
+
+      // Open info modal
+      function openInfoModal(event) {
+        event.preventDefault();
+        document.getElementById("infoModal").classList.add("active");
+        document.body.style.overflow = "hidden";
+      }
+
+      // Close info modal
+      function closeInfoModal() {
+        document.getElementById("infoModal").classList.remove("active");
+        document.body.style.overflow = "";
+      }
+
+      // Format date as m/d/yy
+      function formatDate(dateString) {
+        const date = new Date(dateString);
+        const month = date.getMonth() + 1; // Months are 0-indexed
+        const day = date.getDate();
+        const year = date.getFullYear().toString().slice(-2); // Last 2 digits of year
+        return `${month}/${day}/${year}`;
+      }
+
+      // Shuffle array randomly
+      function shuffleArray(array) {
+        const shuffled = [...array];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
+      }
+
+      // Update URL without reloading page
+      function updateURL(index) {
+        if (index === null) {
+          // Back to index
+          history.pushState({ view: "index" }, "", window.location.pathname);
+        } else {
+          // Detail view
+          const photoId = photos[index].id;
+          history.pushState(
+            { view: "detail", index: index },
+            "",
+            `?photo=${photoId}`
+          );
+        }
+      }
+
+      // Handle browser back/forward buttons
+      window.addEventListener("popstate", (event) => {
+        if (event.state) {
+          if (event.state.view === "index") {
+            if (
+              document.getElementById("photoModal").classList.contains("active")
+            ) {
+              closeModal();
+            }
+          } else if (event.state.view === "detail") {
+            openModal(event.state.index, true);
+          }
+        }
+      });
+
+      // Check URL on page load
+      function checkURLOnLoad() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const photoId = urlParams.get("photo");
+
+        if (photoId && photos.length > 0) {
+          const index = photos.findIndex((p) => p.id === photoId);
+          if (index !== -1) {
+            openModal(index, true);
+          }
+        }
+      }
+
+      // Scroll to top function
+      function scrollToTop(event) {
+        event.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
+
+      // Toggle UI visibility
+      function toggleUI() {
+        uiVisible = !uiVisible;
+        const topNav = document.getElementById("topNav");
+        const modalInfo = document.getElementById("modalInfoOverlay");
+        const showBtn = document.getElementById("showUIBtn");
+
+        if (uiVisible) {
+          topNav.classList.remove("hide-ui");
+          modalInfo.classList.remove("hide-ui");
+          showBtn.classList.remove("visible");
+        } else {
+          topNav.classList.add("hide-ui");
+          modalInfo.classList.add("hide-ui");
+          showBtn.classList.add("visible");
+        }
+      }
+
+      // Show UI (for arrow up key)
+      function showUI() {
+        uiVisible = true;
+        const topNav = document.getElementById("topNav");
+        const modalInfo = document.getElementById("modalInfoOverlay");
+        const showBtn = document.getElementById("showUIBtn");
+
+        topNav.classList.remove("hide-ui");
+        modalInfo.classList.remove("hide-ui");
+        showBtn.classList.remove("visible");
+      }
+
+      // Hide UI (for arrow down key)
+      function hideUI() {
+        uiVisible = false;
+        const topNav = document.getElementById("topNav");
+        const modalInfo = document.getElementById("modalInfoOverlay");
+        const showBtn = document.getElementById("showUIBtn");
+
+        topNav.classList.add("hide-ui");
+        modalInfo.classList.add("hide-ui");
+        showBtn.classList.add("visible");
+      }
+
+      // Process description to handle line breaks
+      function processDescription(description) {
+        if (!description) return "";
+
+        // Replace common HTML break tags with newlines
+        description = description.replace(/<br\s*\/?>/gi, "\n");
+        description = description.replace(/<\/p>/gi, "\n\n");
+        description = description.replace(/<p>/gi, "");
+
+        // Remove other HTML tags
+        const temp = document.createElement("div");
+        temp.innerHTML = description;
+        description = temp.textContent || temp.innerText || "";
+
+        // Normalize multiple newlines
+        description = description.replace(/\n{3,}/g, "\n\n");
+
+        return description.trim();
+      }
+
+      // Fetch photos from local JSON
+      function fetchPhotos() {
+        console.log("Starting fetchPhotos...");
+
+        showScreen("loading");
+
+        fetch("photos.json")
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to load photos.json");
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Photos loaded:", data);
+
+            if (!Array.isArray(data) || data.length === 0) {
+              throw new Error("No photos found");
+            }
+
+            // Map photos from local files
+            let allPhotos = data.map((photo) => ({
+              id: photo.id,
+              title: photo.title || "Untitled",
+              description: photo.description || "",
+              filename: photo.filename,
+              // Use local file paths
+              urlLarge: `photos/${photo.filename}`,
+              urlMedium: `photos/${photo.filename}`,
+              thumbnail: `photos/${photo.filename}`,
+            }));
+
+            console.log("Photos transformed:", allPhotos.length);
+
+            // Check if there's a photo parameter in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const photoIdParam = urlParams.get("photo");
+
+            // Only shuffle if not loading a specific photo
+            if (!photoIdParam) {
+              photos = shuffleArray(allPhotos).slice(0, MAX_PHOTOS);
+              console.log("Shuffled photos:", photos.length);
+            } else {
+              photos = allPhotos.slice(0, MAX_PHOTOS);
+              console.log("Loading specific photo, no shuffle:", photos.length);
+            }
+
+            // Preload first 4 images
+            preloadFirstImages();
+
+            loadMorePhotos();
+            showScreen("grid");
+            setupInfiniteScroll();
+
+            // Check if URL has a photo parameter
+            checkURLOnLoad();
+          })
+          .catch((error) => {
+            console.error("Error loading photos:", error);
+            showError(error.message);
+          });
+      }
+
+      // Preload first 4 images
+      function preloadFirstImages() {
+        const imagesToPreload = Math.min(4, photos.length);
+        const head = document.head;
+
+        for (let i = 0; i < imagesToPreload; i++) {
+          const link = document.createElement("link");
+          link.rel = "preload";
+          link.as = "image";
+          link.href = photos[i].urlMedium;
+          head.appendChild(link);
+        }
+
+        console.log("Preloading first", imagesToPreload, "images");
+      }
+
+      // Load more photos into the grid
+      function loadMorePhotos() {
+        const grid = document.getElementById("photoGrid");
+        const batchSize = isFirstBatch ? INITIAL_BATCH_SIZE : BATCH_SIZE;
+        const endIndex = Math.min(loadedPhotosCount + batchSize, photos.length);
+
+        let loadedImagesCount = 0;
+        const totalImagesToLoad = endIndex - loadedPhotosCount;
+
+        for (let i = loadedPhotosCount; i < endIndex; i++) {
+          const photo = photos[i];
+          const item = document.createElement("div");
+          item.className = "photo-item";
+          item.id = "photo-" + i;
+          item.onclick = () => openModal(i);
+
+          const img = document.createElement("img");
+          img.src = photo.urlMedium; // Use medium size for grid
+          img.alt = photo.title;
+
+          // Prioritize first 4 images (eager loading), lazy load the rest
+          if (i < 4) {
+            img.loading = "eager";
+          } else {
+            img.loading = "lazy";
+          }
+
+          // Track image loading for first batch
+          if (loadedPhotosCount === 0 && i < 4) {
+            img.onload = () => {
+              loadedImagesCount++;
+              if (loadedImagesCount >= Math.min(4, photos.length)) {
+                // Hide grid loading spinner when first 4 images are loaded
+                const gridLoading = document.getElementById("gridLoading");
+                if (gridLoading) {
+                  gridLoading.style.opacity = "0";
+                  setTimeout(() => {
+                    gridLoading.style.display = "none";
+                  }, 300);
+                }
+              }
+            };
+          }
+
+          item.appendChild(img);
+          grid.appendChild(item);
+        }
+
+        loadedPhotosCount = endIndex;
+
+        // After first batch, switch to regular batch size
+        if (isFirstBatch) {
+          isFirstBatch = false;
+        }
+
+        console.log("Loaded photos:", loadedPhotosCount, "of", photos.length);
+      }
+
+      // Setup infinite scroll
+      function setupInfiniteScroll() {
+        window.addEventListener("scroll", () => {
+          // Handle scroll-to-top arrow visibility
+          const scrollArrow = document.getElementById("scrollToTop");
+          const isModalOpen = document
+            .getElementById("photoModal")
+            .classList.contains("active");
+
+          if (!isModalOpen && window.scrollY > 100) {
+            scrollArrow.classList.add("visible");
+          } else if (!isModalOpen) {
+            scrollArrow.classList.remove("visible");
+          }
+
+          // Handle infinite scroll loading
+          if (loadedPhotosCount >= photos.length) return;
+
+          const scrollPosition = window.innerHeight + window.scrollY;
+          const pageHeight = document.documentElement.scrollHeight;
+
+          if (scrollPosition >= pageHeight - 1000) {
+            loadMorePhotos();
+          }
+        });
+      }
+
+      // Scroll to specific photo in grid
+      function scrollToPhoto(index) {
+        const photoElement = document.getElementById("photo-" + index);
+        if (photoElement) {
+          photoElement.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
+      }
+
+      // Open photo modal with fade-in
+      function openModal(index, fromURL = false) {
+        const photo = photos[index];
+        const modal = document.getElementById("photoModal");
+        const grid = document.getElementById("photoGrid");
+        const scrollArrow = document.getElementById("scrollToTop");
+        const backArrow = document.getElementById("backArrow");
+        const topNav = document.getElementById("topNav");
+        const modalImage = document.getElementById("modalImage");
+        const modalImageLoading = document.getElementById("modalImageLoading");
+
+        // Scroll to top to hide Safari chrome on mobile
+        if (window.innerWidth <= 950) {
+          window.scrollTo(0, 1);
+          setTimeout(() => window.scrollTo(0, 0), 0);
+        }
+
+        // Show loading spinner
+        modalImageLoading.style.display = "block";
+        modalImageLoading.style.opacity = "1";
+
+        // Clear previous image
+        modalImage.src = "";
+        modalImage.style.opacity = "0";
+
+        // Show back arrow, hide scroll arrow
+        scrollArrow.classList.add("hidden");
+        backArrow.classList.remove("hidden");
+
+        // Add detail view class for title animation
+        topNav.classList.add("detail-view");
+
+        // Maintain UI state - don't reset it
+        const modalInfo = document.getElementById("modalInfoOverlay");
+        const showBtn = document.getElementById("showUIBtn");
+
+        if (uiVisible) {
+          topNav.classList.remove("hide-ui");
+          modalInfo.classList.remove("hide-ui");
+          showBtn.classList.remove("visible");
+        } else {
+          topNav.classList.add("hide-ui");
+          modalInfo.classList.add("hide-ui");
+          showBtn.classList.add("visible");
+        }
+
+        currentPhotoIndex = index;
+        modal.dataset.currentIndex = index;
+
+        // Load large image
+        const img = new Image();
+        img.onload = function () {
+          modalImage.src = photo.urlLarge;
+          modalImage.style.opacity = "1";
+          // Hide loading spinner
+          modalImageLoading.style.opacity = "0";
+          setTimeout(() => {
+            modalImageLoading.style.display = "none";
+          }, 300);
+        };
+        img.src = photo.urlLarge;
+
+        document.getElementById("modalTitle").textContent = photo.title;
+        document.getElementById("modalDescription").textContent =
+          photo.description;
+
+        // Build meta information - just show filename for local gallery
+        document.getElementById("modalMeta").textContent = photo.filename;
+        document.getElementById("modalLink").href = "#";
+        document.getElementById("modalLink").onclick = function(e) {
+          e.preventDefault();
+        };
+
+        // Update navigation visibility
+        updateNavigation();
+
+        // Update URL
+        if (!fromURL) {
+          updateURL(index);
+        }
+
+        // Hide grid and show modal
+        grid.classList.add("hide-for-modal");
+        modal.classList.add("active");
+        document.body.style.overflow = "hidden";
+
+        // Trigger fade-in after a small delay
+        setTimeout(() => {
+          modal.classList.add("fade-in");
+        }, 10);
+      }
+
+      // Update navigation based on current position
+      function updateNavigation() {
+        // Always show both navigation arrows (they loop)
+        document.getElementById("navLeft").style.display = "flex";
+        document.getElementById("navRight").style.display = "flex";
+      }
+
+      // Close photo modal
+      function closeModal(event) {
+        if (event) event.preventDefault();
+
+        const modal = document.getElementById("photoModal");
+        const grid = document.getElementById("photoGrid");
+        const scrollArrow = document.getElementById("scrollToTop");
+        const backArrow = document.getElementById("backArrow");
+        const topNav = document.getElementById("topNav");
+
+        modal.classList.remove("fade-in");
+
+        // Update URL
+        updateURL(null);
+
+        setTimeout(() => {
+          modal.classList.remove("active");
+          grid.classList.remove("hide-for-modal");
+
+          // Show scroll arrow, hide back arrow
+          backArrow.classList.add("hidden");
+          scrollArrow.classList.remove("hidden");
+
+          // Check scroll position to set arrow visibility
+          if (window.scrollY > 100) {
+            scrollArrow.classList.add("visible");
+          } else {
+            scrollArrow.classList.remove("visible");
+          }
+
+          // Remove detail view class for title animation
+          topNav.classList.remove("detail-view");
+
+          // Always show nav bar on index
+          uiVisible = true;
+          topNav.classList.remove("hide-ui");
+
+          document.body.style.overflow = "";
+          scrollToPhoto(currentPhotoIndex);
+        }, 100);
+      }
+
+      // Navigate to next photo
+      function nextPhoto() {
+        const modal = document.getElementById("photoModal");
+        modal.classList.remove("fade-in");
+
+        setTimeout(() => {
+          // Loop back to first photo if at the end
+          const nextIndex = (currentPhotoIndex + 1) % photos.length;
+          openModal(nextIndex);
+        }, 100);
+      }
+
+      // Navigate to previous photo
+      function prevPhoto() {
+        const modal = document.getElementById("photoModal");
+        modal.classList.remove("fade-in");
+
+        setTimeout(() => {
+          // Loop back to last photo if at the beginning
+          const prevIndex =
+            currentPhotoIndex === 0 ? photos.length - 1 : currentPhotoIndex - 1;
+          openModal(prevIndex);
+        }, 100);
+      }
+
+      // Keyboard navigation
+      document.addEventListener("keydown", (e) => {
+        const modal = document.getElementById("photoModal");
+        const isModalOpen = modal.classList.contains("active");
+        const infoModal = document.getElementById("infoModal");
+        const isInfoModalOpen = infoModal.classList.contains("active");
+
+        // Handle info modal ESC key
+        if (isInfoModalOpen && e.key === "Escape") {
+          closeInfoModal();
+          return;
+        }
+
+        if (!isModalOpen) return;
+
+        if (e.key === "Escape" || e.key === "x" || e.key === "X") {
+          closeModal();
+        } else if (e.key === "ArrowRight") {
+          e.preventDefault();
+          nextPhoto();
+        } else if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          prevPhoto();
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          showUI();
+        } else if (e.key === "ArrowDown") {
+          e.preventDefault();
+          hideUI();
+        }
+      });
+
+      // Show/hide screens
+      function showScreen(screen) {
+        document.getElementById("loadingScreen").classList.add("hidden");
+        document.getElementById("errorScreen").classList.add("hidden");
+        document.getElementById("photoGrid").classList.add("hidden");
+
+        if (screen === "loading") {
+          document.getElementById("loadingScreen").classList.remove("hidden");
+        } else if (screen === "error") {
+          document.getElementById("errorScreen").classList.remove("hidden");
+        } else if (screen === "grid") {
+          document.getElementById("photoGrid").classList.remove("hidden");
+        }
+      }
+
+      // Show error
+      function showError(message) {
+        document.getElementById("errorMessage").textContent = message;
+        showScreen("error");
+      }
+    </script>
+  </body>
+</html>

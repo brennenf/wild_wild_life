@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "filename": "IDG_20250827_183855_712.jpg",
+    "title": "Wildlife Moment",
+    "description": "A captured moment from the wild"
+  },
+  {
+    "id": "2",
+    "filename": "IMG_5796.jpg",
+    "title": "Nature's Canvas",
+    "description": "Untitled"
+  },
+  {
+    "id": "3",
+    "filename": "NO_FUSION_LIVE_0117_001.jpg",
+    "title": "Live Performance",
+    "description": "Captured during a live event"
+  },
+  {
+    "id": "4",
+    "filename": "NO_FUSION_LIVE_0202_001.jpg",
+    "title": "Another Moment",
+    "description": "From the event series"
+  },
+  {
+    "id": "5",
+    "filename": "_BFD1993.jpg",
+    "title": "Photo Series",
+    "description": "Part of the collection"
+  },
+  {
+    "id": "6",
+    "filename": "_BFD2003.jpg",
+    "title": "Composition",
+    "description": "Artistic capture"
+  },
+  {
+    "id": "7",
+    "filename": "_BFD2183.jpg",
+    "title": "Detail Work",
+    "description": "Close perspective"
+  },
+  {
+    "id": "8",
+    "filename": "_BFD2215.jpg",
+    "title": "Environmental Shot",
+    "description": "Scene capture"
+  },
+  {
+    "id": "9",
+    "filename": "_BFD2217.jpg",
+    "title": "Final Frame",
+    "description": "Conclusion of series"
+  }
+]
