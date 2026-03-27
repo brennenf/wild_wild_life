@@ -1,0 +1,10 @@
+{
+  "name": "wild_wild_life",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "sync-dates": "node scripts/update-photo-dates.js",
+    "start": "npm run sync-dates && npx serve . -l 3000",
+    "deploy": "npm run sync-dates"
+  }
+}
