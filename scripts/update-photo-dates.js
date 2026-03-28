@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const SITE_URL = 'https://brennenf.github.io/wild_wild_life';
+
 const photosDir = path.join(__dirname, '..', 'photos');
 const photosJsonPath = path.join(__dirname, '..', 'photos.json');
 const supportedExts = ['.jpg', '.jpeg', '.png'];
@@ -174,21 +176,13 @@ function rssDate(value) {
 }
 
 function getPhotoLink(photo) {
-  return `/?photo=${encodeURIComponent(photo.id)}`;
+  return `${SITE_URL}/?photo=${encodeURIComponent(photo.id)}`;
 }
 
 function getPhotoUrl(photo) {
-  return `/photos/${encodeURIComponent(photo.filename)}`;
+  return `${SITE_URL}/photos/${encodeURIComponent(photo.filename)}`;
 }
 
-function getPhotoFileSize(photo) {
-  try {
-    const stats = fs.statSync(path.join(photosDir, photo.filename));
-    return stats.size;
-  } catch (error) {
-    return 0;
-  }
-}
 
 function generateRss(photos) {
   const sortedPhotos = [...photos].sort((a, b) => {
@@ -208,19 +202,16 @@ function generateRss(photos) {
       const link = escapeXml(getPhotoLink(photo));
       const guid = escapeXml(photo.id || photo.filename);
       const pubDate = photo.dateTaken ? rssDate(photo.dateTaken) : rssDate(photo.date || new Date());
-      const enclosureUrl = escapeXml(getPhotoUrl(photo));
-      const mimeType = path.extname(photo.filename).toLowerCase() === '.jpg' || path.extname(photo.filename).toLowerCase() === '.jpeg'
-        ? 'image/jpeg'
-        : 'image/png';
-      const length = getPhotoFileSize(photo);
+      const enclosureUrl = getPhotoUrl(photo);
 
+      const imgHtml = `<img src="${enclosureUrl}" alt="${escapeXml(photo.title || '')}" style="max-width:100%;height:auto;" />`;
+      const descHtml = description ? `<p>${description}</p>` : '';
       return `    <item>
       <title>${title}</title>
       <link>${link}</link>
       <guid isPermaLink="false">${guid}</guid>
       <pubDate>${pubDate}</pubDate>
-      <description>${description}</description>
-      <enclosure url="${enclosureUrl}" length="${length}" type="${mimeType}" />
+      <description><![CDATA[${imgHtml}${descHtml}]]></description>
     </item>`;
     })
     .join('\n');
@@ -229,11 +220,11 @@ function generateRss(photos) {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Don't Disturb the Wildlife</title>
-    <link>/</link>
+    <link>${SITE_URL}/</link>
     <description>Latest images from the wildlife gallery.</description>
     <language>en-us</language>
     <lastBuildDate>${lastBuildDate}</lastBuildDate>
-    <atom:link href="/rss.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml" />
 ${items}
   </channel>
 </rss>`;

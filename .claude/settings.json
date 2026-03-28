@@ -2,7 +2,9 @@
   "permissions": {
     "allow": [
       "Bash(node -e \":*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(git -C /Users/bflorey/dev/wwl remote get-url origin)",
+      "Bash(node /Users/bflorey/dev/wwl/scripts/update-photo-dates.js)"
     ]
   }
 }
