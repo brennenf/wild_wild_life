@@ -6,7 +6,7 @@
     <title>Don't Disturb the Wildlife</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="style.css" />
-    <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="Don't Disturb the Wildlife" />
+    <link rel="alternate" type="application/rss+xml" href="/wwl/rss.xml" title="The Wild" />
 
   </head>
   <body>
@@ -26,7 +26,7 @@
         onclick="closeModal(event)"
         >←</a
       >
-      <a href="/" class="title-link" id="titleLink" aria-label="Shh! Don't Disturb the Wildlife">
+      <a href="/" class="title-link" id="titleLink" aria-label="Shh! The Wildlife Scare Easily - Home">
         <div id="animatedTitle" aria-hidden="true">
           <div class="title-first">
             <span class="title-word shh">Shh!</span>
@@ -40,7 +40,7 @@
         </div>
       </a>
       <a
-        href="/rss.xml"
+        href="/wwl/rss.xml"
         class="rss-btn"
         title="Subscribe via RSS"
       >
@@ -161,8 +161,8 @@
         <div class="modal-info-content">
           <h2 id="modalTitle"></h2>
           <div id="modalDescription" class="description"></div>
+          <div id="modalExif" class="exif-info"></div>
           <a id="modalLink" href="#" target="_blank">
-            <div id="modalMeta" class="meta"></div>
           </a>
         </div>
       </div>
@@ -489,6 +489,7 @@
               thumbnail: `photos/${photo.filename}`,
               date: photo.date || null,
               dateTaken: photo.dateTaken || null,
+              exif: photo.exif || null,
             }));
 
             console.log("Photos transformed:", allPhotos.length);
@@ -708,8 +709,17 @@
         document.getElementById("modalDescription").textContent =
           photo.description;
 
-        // Build meta information - just show filename for local gallery
-        document.getElementById("modalMeta").textContent = photo.filename;
+        const exifEl = document.getElementById("modalExif");
+        if (photo.exif) {
+          const { camera, lens, aperture, shutter, iso, focalLength } = photo.exif;
+          const exposure = [aperture, shutter ? shutter + "s" : null, iso ? "ISO\u00a0" + iso : null, focalLength].filter(Boolean).join(" · ");
+          const cameraLine = lens ? `${camera} · ${lens}` : camera;
+          exifEl.textContent = [cameraLine, exposure].filter(Boolean).join(" · ");
+          exifEl.style.display = "";
+        } else {
+          exifEl.style.display = "none";
+        }
+
         document.getElementById("modalLink").href = "#";
         document.getElementById("modalLink").onclick = function(e) {
           e.preventDefault();

@@ -3,13 +3,18 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "preflight": "node scripts/preflight-gemini.js",
+    "preflight": "node --env-file=.env scripts/preflight-gemini.js",
     "sync-dates": "node scripts/update-photo-dates.js",
-    "sync-metadata": "node scripts/generate-photo-metadata.js",
-    "sync-metadata:missing": "node scripts/generate-photo-metadata.js --only-missing",
+    "sync-metadata": "node --env-file=.env scripts/generate-photo-metadata.js",
+    "sync-metadata:missing": "node --env-file=.env scripts/generate-photo-metadata.js --only-missing",
+    "sync-metadata:claude": "node --env-file=.env scripts/generate-photo-metadata.js --provider=claude",
+    "sync-metadata:claude:missing": "node --env-file=.env scripts/generate-photo-metadata.js --provider=claude --only-missing",
     "sync-content": "npm run sync-dates && npm run sync-metadata:missing",
     "start": "npm run sync-dates && npx serve . -l 3000",
     "deploy": "npm run preflight && npm run sync-content",
     "deploy:no-ai": "npm run sync-dates"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.80.0"
   }
 }
