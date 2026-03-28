@@ -4,12 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Don't Disturb the Wildlife</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
-      rel="stylesheet"
-    />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <link rel="stylesheet" href="style.css" />
     <link rel="alternate" type="application/rss+xml" href="/rss.xml" title="Don't Disturb the Wildlife" />
@@ -32,8 +26,18 @@
         onclick="closeModal(event)"
         >←</a
       >
-      <a href="/" class="title-link" id="titleLink">
-        <h1>Don't Disturb the Wildlife</h1>
+      <a href="/" class="title-link" id="titleLink" aria-label="Shh! Don't Disturb the Wildlife">
+        <div id="animatedTitle" aria-hidden="true">
+          <div class="title-first">
+            <span class="title-word shh">Shh!</span>
+          </div>
+          <div class="title-following">
+            <span class="title-word">The</span>
+            <span class="title-word">Wildlife</span>
+            <span class="title-word">Scare</span>
+            <span class="title-word">Easily</span>
+          </div>
+        </div>
       </a>
       <a
         href="/rss.xml"
@@ -266,6 +270,15 @@
           });
       }
 
+      function initTitleAnimation() {
+        const title = document.getElementById("animatedTitle");
+        if (!title) return;
+        title.classList.add("animate-in");
+        setTimeout(() => {
+          title.classList.add("expanded");
+        }, 1500);
+      }
+
       // Add touch event listeners to photo modal
       window.addEventListener("DOMContentLoaded", function () {
         const modal = document.getElementById("photoModal");
@@ -274,6 +287,7 @@
 
         // Load about.txt
         loadAboutText();
+        initTitleAnimation();
 
         // Handle title link click on mobile
         const titleLink = document.getElementById("titleLink");

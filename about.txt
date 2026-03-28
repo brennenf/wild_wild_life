@@ -1,0 +1,17 @@
+<h2>About This Gallery</h2>
+
+<p>Welcome to my photo gallery. This is a collection of my favorite photographs from the past two years.</p>
+
+<p>Here you can browse through 30 randomly selected images from my Flickr collection. Use the arrow keys or swipe gestures to navigate through the photos.</p>
+
+<h3>Features</h3>
+<ul>
+    <li>Keyboard shortcuts (arrow keys, ESC, X)</li>
+    <li>Swipe gestures on mobile</li>
+    <li>Hide/show UI with up/down arrows or swipes</li>
+    <li>Direct links to photos on Flickr</li>
+</ul>
+
+<p><strong>Photography:</strong> All photos are my original work.</p>
+
+<p>For more of my photography, visit my <a href="https://www.flickr.com" target="_blank">Flickr profile</a>.</p>

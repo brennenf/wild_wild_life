@@ -5,7 +5,7 @@
       }
 
       body {
-        font-family: "Roboto", sans-serif;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-weight: 400;
         background: #000;
         color: #fff;
@@ -48,6 +48,115 @@
         margin: 0;
         transition: font-size 0.2s ease;
         line-height: 1;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 0.25em;
+      }
+
+      #animatedTitle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        gap: 0.25em;
+        min-height: 1.1em;
+        font-size: 2em;
+        font-weight: 700;
+        font-style: italic;
+        line-height: 1;
+        transition: transform 0.5s ease;
+      }
+
+      .title-first,
+      .title-following {
+        display: flex;
+        gap: 0.25em;
+        align-items: center;
+      }
+
+      .title-first {
+        transition: transform 0.5s ease;
+      }
+
+      #animatedTitle.expanded .title-first {
+        transform: translateX(-0.75rem);
+      }
+
+      .title-following {
+        display: flex;
+        gap: 0.25em;
+        align-items: center;
+        opacity: 0;
+        max-width: 0;
+        overflow: hidden;
+        transition: max-width 0.4s ease 0.2s, opacity 0.3s ease 0.2s;
+        white-space: nowrap;
+      }
+
+      #animatedTitle.expanded .title-following {
+        opacity: 1;
+        max-width: 1000px;
+      }
+
+      #animatedTitle .title-word {
+        display: inline-block;
+        opacity: 0;
+        transform: translateY(-200vh);
+        will-change: transform, opacity;
+      }
+
+      #animatedTitle.animate-in .title-word.shh {
+        animation-name: titleDrop;
+        animation-duration: 0.8s;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+        animation-delay: 0s;
+      }
+
+      #animatedTitle.animate-in.expanded .title-following .title-word:nth-child(1) {
+        animation-name: titleDrop;
+        animation-duration: 0.8s;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+        animation-delay: 0s;
+      }
+
+      #animatedTitle.animate-in.expanded .title-following .title-word:nth-child(2) {
+        animation-name: titleDrop;
+        animation-duration: 0.8s;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+        animation-delay: 0.2s;
+      }
+
+      #animatedTitle.animate-in.expanded .title-following .title-word:nth-child(3) {
+        animation-name: titleDrop;
+        animation-duration: 0.8s;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+        animation-delay: 0.4s;
+      }
+
+      #animatedTitle.animate-in.expanded .title-following .title-word:nth-child(4) {
+        animation-name: titleDrop;
+        animation-duration: 0.8s;
+        animation-fill-mode: forwards;
+        animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+        animation-delay: 0.6s;
+      }
+
+      @keyframes titleDrop {
+        from {
+          opacity: 0;
+          transform: translateY(-200vh);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
 
       .top-nav a.title-link {
@@ -223,7 +332,7 @@
       }
 
       .info-modal-text {
-        font-family: "Roboto", sans-serif;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-weight: 300;
         color: #fff;
       }
@@ -293,7 +402,7 @@
         border-radius: 6px;
         color: #fff;
         font-size: 1rem;
-        font-family: "Roboto", sans-serif;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-weight: 400;
       }
 
@@ -311,7 +420,7 @@
         border-radius: 6px;
         font-size: 1rem;
         font-weight: 400;
-        font-family: "Roboto", sans-serif;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         cursor: pointer;
         transition: background 0.2s;
       }
