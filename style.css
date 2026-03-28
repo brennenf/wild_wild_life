@@ -63,10 +63,10 @@
         align-items: center;
         width: 100%;
         gap: 0.25em;
-        min-height: 1.1em;
+        min-height: 1.4em;
         font-weight: 400;
         font-style: italic;
-        line-height: 1;
+        line-height: 1.3;
         transition: transform 0.5s ease;
         position: relative;
       }
@@ -193,7 +193,7 @@
         }
 
         #animatedTitle {
-          font-size: 1.5em;
+          font-size: 1.4em;
         }
 
         .modal-info-overlay h2 {
@@ -234,7 +234,7 @@
 
       .add-info-btn {
         position: absolute;
-        right: 40px;
+        right: 30px;
         opacity: 0.5;
         transition: opacity 0.3s;
         cursor: pointer;
