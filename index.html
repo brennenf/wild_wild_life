@@ -70,11 +70,13 @@
     </div>
 
     <!-- Info Modal -->
-    <div id="infoModal" class="info-modal">
+    <div id="infoModal" class="info-modal" onclick="handleInfoModalBackdropClick(event)">
       <div class="info-modal-content glass-box">
-        <div class="info-modal-close" onclick="closeInfoModal()">×</div>
-        <div class="info-modal-text" id="infoModalText">
-          sample text goes here
+        <div class="info-modal-close glass-box" onclick="closeInfoModal()">×</div>
+        <div class="info-modal-scroll">
+          <div class="info-modal-text" id="infoModalText">
+            sample text goes here
+          </div>
         </div>
       </div>
     </div>
@@ -306,6 +308,13 @@
       function closeInfoModal() {
         document.getElementById("infoModal").classList.remove("active");
         document.body.style.overflow = "";
+      }
+
+      // Close info modal when clicking the backdrop
+      function handleInfoModalBackdropClick(event) {
+        if (event.target === document.getElementById("infoModal")) {
+          closeInfoModal();
+        }
       }
 
       // Format date as m/d/yy
