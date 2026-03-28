@@ -5,7 +5,7 @@
       }
 
       body {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-family: "Playfair Display", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-weight: 400;
         background: #000;
         color: #fff;
@@ -64,7 +64,7 @@
         width: 100%;
         gap: 0.25em;
         min-height: 1.1em;
-        font-weight: 700;
+        font-weight: 400;
         font-style: italic;
         line-height: 1;
         transition: transform 0.5s ease;
@@ -180,6 +180,10 @@
 
         #animatedTitle {
           font-size: clamp(0.75rem, 3.5vw, 1.4em);
+        }
+
+        .modal-info-overlay h2 {
+          font-size: 1rem;
         }
       }
 
@@ -674,6 +678,21 @@
           width: 100%;
           padding: 20px 50px;
         }
+
+        .info-modal-content p,
+        .info-modal-content ul {
+          font-size: .8em;
+        }
+
+        .info-modal-content li {
+          font-size: .8em;
+        }
+
+        .modal-info-overlay .description {
+          font-size: 0.7rem;
+        }
+
+
       }
 
       .modal-info-overlay.hide-ui {
@@ -696,14 +715,14 @@
       }
 
       .modal-info-overlay h2 {
-        font-size: 1.75rem;
+        font-size: 1.25rem;
         margin: 0 0 15px 0;
         color: #fff;
         font-weight: 400;
       }
 
       .modal-info-overlay .description {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
         margin: 10px 0;
         color: #fff;
         line-height: 1.5;
