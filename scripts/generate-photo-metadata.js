@@ -285,7 +285,7 @@ async function generateMetadata({ apiKey, model, filename }, retries = 3) {
     'You are writing metadata for a wildlife and pet photo gallery.',
     'Your tone is vivid, evocative, and dryly humorous — like a nature documentary narrated by someone with a very dry wit.',
     'Return only strict JSON with keys: title and description.',
-    'title rules: exactly 4 words, no quotes, no trailing punctuation, creative and unexpected — avoid generic descriptions.',
+    'title rules: exactly 3 words, no quotes, no trailing punctuation, creative and unexpected — avoid generic descriptions.',
     'description rules: 1 sentence, 8 to 24 words, vivid and specific, with subtle dry humor where it fits naturally.',
     'Avoid speculation about specific people unless obvious from the image.',
   ].join(' ');
@@ -393,7 +393,7 @@ async function generateMetadataWithClaude({ apiKey, model, filename }) {
     'You are writing metadata for a wildlife and pet photo gallery.',
     'Your tone is vivid, evocative, and dryly humorous — like a nature documentary narrated by someone with a very dry wit.',
     'Return only strict JSON with keys: title and description.',
-    'title rules: exactly 4 words, no quotes, no trailing punctuation, creative and unexpected — avoid generic descriptions.',
+    'title rules: exactly 3 words, no quotes, no trailing punctuation, creative and unexpected — avoid generic descriptions.',
     'description rules: 1 sentence, 8 to 24 words, vivid and specific, with subtle dry humor where it fits naturally.',
     'Avoid speculation about specific people unless obvious from the image.',
   ].join(' ');

@@ -4,7 +4,9 @@
       "Bash(node -e \":*)",
       "Bash(npm install:*)",
       "Bash(git -C /Users/bflorey/dev/wwl remote get-url origin)",
-      "Bash(node /Users/bflorey/dev/wwl/scripts/update-photo-dates.js)"
+      "Bash(node /Users/bflorey/dev/wwl/scripts/update-photo-dates.js)",
+      "Bash(npm run:*)",
+      "Bash(node -e \"JSON.parse\\(require\\(''fs''\\).readFileSync\\(''/Users/bflorey/dev/wwl/photos.json''\\)\\).forEach\\(p => console.log\\(p.title\\)\\)\")"
     ]
   }
 }

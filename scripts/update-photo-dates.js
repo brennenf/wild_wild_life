@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const SITE_URL = 'https://brennenf.github.io/wild_wild_life';
+const SITE_URL = 'https://brennenf.github.io/wwl';
 
 const photosDir = path.join(__dirname, '..', 'photos');
 const photosJsonPath = path.join(__dirname, '..', 'photos.json');
@@ -219,7 +219,7 @@ function generateRss(photos) {
   const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Don't Disturb the Wildlife</title>
+    <title>Shh! The Wildlife Scare Easily</title>
     <link>${SITE_URL}/</link>
     <description>Latest images from the wildlife gallery.</description>
     <language>en-us</language>

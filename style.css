@@ -41,7 +41,7 @@
       }
 
       .top-nav h1 {
-        font-size: 2em;
+        font-size: 1.75em;
         font-weight: 700;
         font-style: italic;
         text-transform: lowercase;
@@ -172,6 +172,10 @@
       @media (max-width: 950px) {
         .top-nav a.title-link {
           cursor: pointer;
+        }
+
+        .top-nav h1 {
+          font-size: 1.4em;
         }
       }
 
