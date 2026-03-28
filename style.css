@@ -170,37 +170,8 @@
       }
 
       @media (max-width: 950px) {
-        .top-nav {
-          justify-content: flex-start;
-          padding: 12px 16px;
-          gap: 0;
-        }
-
         .top-nav a.title-link {
           cursor: pointer;
-          flex: 1;
-          text-align: left;
-          margin-left: 20px;
-        }
-
-        #animatedTitle {
-          justify-content: flex-start;
-        }
-
-        #animatedTitle.expanded .title-first {
-          transform: translateX(0);
-        }
-
-        .add-info-btn {
-          position: static;
-          right: auto;
-          margin-left: auto;
-        }
-
-        .scroll-to-top,
-        .back-arrow {
-          left: 16px;
-          font-size: 1em;
         }
 
         .top-nav h1 {
