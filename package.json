@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "preflight": "node --env-file=.env scripts/preflight-gemini.js",
+    "preflight": "node --env-file=.env scripts/preflight-captions.js",
     "sync-dates": "node scripts/update-photo-dates.js",
     "sync-metadata": "node --env-file=.env scripts/generate-photo-metadata.js",
     "sync-metadata:missing": "node --env-file=.env scripts/generate-photo-metadata.js --only-missing",
