@@ -33,8 +33,8 @@ npm run deploy:no-ai
    - Refreshes `date` and `dateTaken` fields from EXIF when available
    - Regenerates `rss.xml`
 
-3. `sync-metadata:missing`
-   - Calls the configured AI provider for images missing `title` and/or `description`
+3. `sync-metadata:claude:missing`
+   - Calls Claude for images missing `title` and/or `description`
    - Also reads EXIF data (camera, lens, aperture, shutter, ISO, focal length) from each file
    - Writes everything back to `photos.json`
 
@@ -51,22 +51,22 @@ ANTHROPIC_API_KEY=your_anthropic_key_here
 
 Metadata generation supports two providers. Gemini is the default.
 
-### Gemini (default)
-
-Uses `gemini-2.5-flash`. Get a key at [aistudio.google.com](https://aistudio.google.com).
-
-```bash
-npm run sync-metadata:missing         # missing only
-npm run sync-metadata                 # all photos
-```
-
-### Claude
+### Claude (default)
 
 Uses `claude-sonnet-4-6`. Get a key at [console.anthropic.com](https://console.anthropic.com).
 
 ```bash
 npm run sync-metadata:claude:missing  # missing only
 npm run sync-metadata:claude          # all photos
+```
+
+### Gemini
+
+Uses `gemini-2.5-flash`. Get a key at [aistudio.google.com](https://aistudio.google.com).
+
+```bash
+npm run sync-metadata:missing         # missing only
+npm run sync-metadata                 # all photos
 ```
 
 To use a specific model or provider on the fly:
@@ -79,6 +79,9 @@ node --env-file=.env scripts/generate-photo-metadata.js --provider=gemini --mode
 ## Useful Commands
 
 ```bash
+# Sync content and commit photos.json + rss.xml in one step
+npm run sync-commit
+
 # Start local site
 npm run start
 
@@ -107,6 +110,7 @@ node --env-file=.env scripts/generate-photo-metadata.js --dry-run --limit=2
 ## Suggested Routine
 
 1. Add new files to `photos/`
-2. Run `npm run deploy`
-3. Review `photos.json`
-4. Commit and push
+2. Run `npm run sync-commit`
+3. Review the commit, then `git push`
+
+`sync-commit` runs the full content sync (dates + missing metadata) and commits `photos.json` and `rss.xml` in one step with a dated commit message.

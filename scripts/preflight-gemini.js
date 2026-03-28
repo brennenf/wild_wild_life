@@ -1,17 +1,20 @@
-const REQUIRED_ENV = 'GEMINI_API_KEY';
+const REQUIRED_KEYS = ['ANTHROPIC_API_KEY', 'GEMINI_API_KEY'];
 
 function main() {
-  const value = process.env[REQUIRED_ENV];
+  let failed = false;
 
-  if (!value || !value.trim()) {
-    console.error(`Missing ${REQUIRED_ENV}.`);
-    console.error('Set it before AI-enabled deploy commands, for example:');
-    console.error('  export GEMINI_API_KEY="your_api_key_here"');
-    process.exit(1);
+  for (const key of REQUIRED_KEYS) {
+    const value = process.env[key];
+    if (!value || !value.trim()) {
+      console.error(`Missing ${key}.`);
+      failed = true;
+    } else {
+      const masked = `${value.slice(0, 4)}...${value.slice(-4)}`;
+      console.log(`${key} is set (${masked}).`);
+    }
   }
 
-  const masked = `${value.slice(0, 4)}...${value.slice(-4)}`;
-  console.log(`${REQUIRED_ENV} is set (${masked}).`);
+  if (failed) process.exit(1);
 }
 
 main();

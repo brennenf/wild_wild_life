@@ -9,7 +9,8 @@
     "sync-metadata:missing": "node --env-file=.env scripts/generate-photo-metadata.js --only-missing",
     "sync-metadata:claude": "node --env-file=.env scripts/generate-photo-metadata.js --provider=claude",
     "sync-metadata:claude:missing": "node --env-file=.env scripts/generate-photo-metadata.js --provider=claude --only-missing",
-    "sync-content": "npm run sync-dates && npm run sync-metadata:missing",
+    "sync-content": "npm run sync-dates && npm run sync-metadata:claude:missing",
+    "sync-commit": "npm run sync-content && git add photos.json rss.xml && git commit -m \"sync: refresh photo metadata $(date '+%Y-%m-%d')\"",
     "start": "npm run sync-dates && npx serve . -l 3000",
     "deploy": "npm run preflight && npm run sync-content",
     "deploy:no-ai": "npm run sync-dates"
