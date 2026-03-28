@@ -57,7 +57,7 @@
       }
 
       #animatedTitle {
-        font-size: 1.75em;
+        font-size: 2em;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -68,6 +68,7 @@
         font-style: italic;
         line-height: 1;
         transition: transform 0.5s ease;
+        position: relative;
       }
 
       .title-first,
@@ -78,11 +79,24 @@
       }
 
       .title-first {
-        transition: transform 0.5s ease;
+        transition: none;
       }
 
       #animatedTitle.expanded .title-first {
-        transform: translateX(-0.75rem);
+        position: absolute;
+        left: 50%;
+        animation: shhExit 0.5s ease forwards;
+      }
+
+      @keyframes shhExit {
+        from {
+          transform: translateX(-50%);
+          opacity: 1;
+        }
+        to {
+          transform: translateX(-200vw);
+          opacity: 0;
+        }
       }
 
       .title-following {
@@ -179,7 +193,7 @@
         }
 
         #animatedTitle {
-          font-size: clamp(0.75rem, 3.5vw, 1.4em);
+          font-size: 1.7em;
         }
 
         .modal-info-overlay h2 {
@@ -732,6 +746,7 @@
       }
 
       .modal-info-overlay .exif-info {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-size: 0.72rem;
         margin-top: 10px;
         color: rgba(255, 255, 255, 0.55);
@@ -739,9 +754,12 @@
         text-align: left;
         line-height: 1.6;
         letter-spacing: 0.01em;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        white-space: normal;
+        overflow: visible;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
 
       .modal-info-overlay .meta {
