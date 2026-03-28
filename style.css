@@ -288,7 +288,7 @@
       .info-modal-content h2 {
         font-size: 1.5em;
         font-weight: 400;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
       }
 
       .info-modal-content p,
@@ -318,7 +318,7 @@
       }
 
       .info-modal-text {
-        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-family: "Playfair Display", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
         font-weight: 300;
         color: #fff;
       }

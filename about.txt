@@ -1,19 +1,16 @@
-<h2>About This Gallery</h2>
+<h2>Shh!!! Quiet and I'll tell you something ...</h2>
 
-<p>Welcome to my photo gallery. This is a collection of my favorite photographs from the past two years.</p>
+<p>I made this site. Sorta.</p>
 
-<p>Here you can browse through 30 randomly selected images from my Flickr collection. Use the arrow keys or swipe gestures to navigate through the photos.</p>
+<p>I mean, I totally made it, but not in the way I've made sites for two decades. For this one, I just described things, over and over, following the same muse that always propells me, but with different hands, a faster pace, and zero cursing aloud.</p>
 
-<h3>Features</h3>
-<ul>
-    <li>Keyboard shortcuts (arrow keys, ESC, X)</li>
-    <li>Swipe gestures on mobile</li>
-    <li>Hide/show UI with up/down arrows or swipes</li>
-    <li>Direct links to photos on Flickr</li>
-</ul>
+<p>I made this site with Claude, mostly, to help me learn a new method. It was a hoot! I can build something like this in an afternoon becuase I know how to build something like this. Claude just accelerates time and covers bases, which allows me to focus on whimsy.</p>
 
-<p><strong>Photography:</strong> All photos are my original work.</p>
+<p>I plan to occasionally add wildlife or front-porch animal photos to this site as if it were a blog. <a href="/wwl/rss.xml">Subscribe to a feed of these photos</a> to have them delivered to you.<p>
 
-<p>For more of my photography, visit my <a href="https://www.flickr.com" target="_blank">Flickr profile</a>.</p>
+<p>(C'mon, you know what RSS is, right? You probably don't (sigh) but it's <i>the best</i>. It's how podcasts work behind the scenes, delivering things to you so you don't have to go fetch them. In fact, maybe I'll make this site into a podcast. Hmmm. It would be a trival iteration via prompt.)</p>
 
-<p>RSS: <a href="/wwl/rss.xml">Subscribe to a feed of these photos</a> to have them delivered to you. C'mon, you know what RSS is, right?</p>
+<p><strong>Photography:</strong> © All photos are my original work. All rights reserved. For more of my photography, visit my <a href="https://www.flickr.com" target="_blank">Flickr profile</a>.</p>
+
+<p>Now Shhhhh!!! Close this window quietly so as not to scare the fauna away</p>
+
