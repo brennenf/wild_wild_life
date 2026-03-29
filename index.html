@@ -706,9 +706,26 @@
         const exifEl = document.getElementById("modalExif");
         if (photo.exif) {
           const { camera, lens, aperture, shutter, iso, focalLength } = photo.exif;
-          const exposure = [aperture, shutter ? shutter + "s" : null, iso ? "ISO\u00a0" + iso : null, focalLength].filter(Boolean).join(" · ");
-          const cameraLine = lens ? `${camera} · ${lens}` : camera;
-          exifEl.textContent = [cameraLine, exposure].filter(Boolean).join(" · ");
+          const cols = [
+            { key: "camera",   label: "Camera",        value: camera || "—" },
+            ...((!aperture && (!lens || lens.startsWith("0.0"))) ? [{ key: "lens", label: "Lens", value: "Manual" }] : []),
+            { key: "aperture", label: "Aperture",      value: aperture || "—" },
+            { key: "shutter",  label: "Shutter",       value: shutter ? shutter + "s" : "—" },
+            { key: "iso",      label: "ISO",           value: iso != null ? String(iso) : "—" },
+            { key: "focal",    label: camera === "Nikon Z50 II" ? "Length ×1.5" : "Length", value: focalLength || "—" },
+          ].filter(col => col.value !== "—");
+          exifEl.innerHTML = `
+            <!-- Available EXIF attributes: camera, lens, aperture, shutter, iso, focalLength -->
+            <table class="exif-table">
+              <colgroup>${cols.map(c => `<col data-col="${c.key}">`).join("")}</colgroup>
+              <thead>
+                <tr><th colspan="${cols.length}">Capture Settings</th></tr>
+                <tr class="exif-labels">${cols.map(c => `<td data-col="${c.key}">${c.label}</td>`).join("")}</tr>
+              </thead>
+              <tbody>
+                <tr class="exif-values">${cols.map(c => `<td data-col="${c.key}">${c.value}</td>`).join("")}</tr>
+              </tbody>
+            </table>`;
           exifEl.style.display = "";
         } else {
           exifEl.style.display = "none";

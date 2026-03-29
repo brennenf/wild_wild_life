@@ -224,8 +224,11 @@ function formatExifData(tags) {
     // Skip iPhone "back camera X.Xmm f/X.X" style labels for non-Apple
     const isApple = typeof make === 'string' && make.toLowerCase().includes('apple');
     if (!isApple) {
-      // Clean up Nikon lens names
-      lens = lensModelRaw.replace(/\s+E$/, '').trim();
+      const cleaned = lensModelRaw.replace(/\s+E$/, '').trim();
+      // Discard placeholder lens values like "0.0 mm f/0.0"
+      if (!/^0\.0\s*mm/.test(cleaned)) {
+        lens = cleaned;
+      }
     }
   }
 

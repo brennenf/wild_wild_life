@@ -762,20 +762,77 @@
       }
 
       .modal-info-overlay .exif-info {
+        margin-top: 14px;
+        width: 100%;
+      }
+
+
+
+      .photobox {
+        float: right;
+        position: relative;
+        width: 46%;
+        margin: 15px 0px 50px 30px;
+      }
+
+      .photobox img {
+        width: 100%;
+        height: auto;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      .photobox .caption {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-        font-size: 0.72rem;
-        margin-top: 10px;
-        color: rgba(255, 255, 255, 0.55);
-        font-weight: 400;
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.6em;
+      }
+
+      .exif-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        font-size: 0.65rem;
+        color: #fff;
+        background: transparent;
+        table-layout: fixed;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+      }
+
+      .exif-table th,
+      .exif-table td {
+        padding: 5px 8px;
+        border-right: 1px solid rgba(255, 255, 255, 0.5);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .exif-table th:last-child,
+      .exif-table td:last-child {
+        border-right: none;
+      }
+
+      .exif-table tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .exif-table th {
         text-align: left;
-        line-height: 1.6;
-        letter-spacing: 0.01em;
-        white-space: normal;
-        overflow: visible;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        line-clamp: 2;
-        -webkit-box-orient: vertical;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.5);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .exif-table .exif-labels td {
+        color: rgba(255, 255, 255, 0.5);
+        letter-spacing: 0.04em;
+      }
+
+      .exif-table col[data-col="focal"] {
+        width: 105px;
       }
 
       .modal-info-overlay .meta {

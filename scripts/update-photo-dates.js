@@ -234,6 +234,12 @@ ${items}
 }
 
 function main() {
+  if (process.argv.includes('--rss-only')) {
+    const photos = readPhotosJson();
+    generateRss(photos);
+    return;
+  }
+
   const existingPhotos = readPhotosJson();
   const existingByFilename = new Map(existingPhotos.map((photo) => [photo.filename, photo]));
   const ids = existingPhotos
@@ -254,7 +260,9 @@ function main() {
 
   fs.writeFileSync(photosJsonPath, JSON.stringify(updatedPhotos, null, 2) + '\n', 'utf8');
   console.log(`Updated ${updatedPhotos.length} photo entries in photos.json.`);
-  generateRss(updatedPhotos);
+  if (!process.argv.includes('--no-rss')) {
+    generateRss(updatedPhotos);
+  }
 }
 
 main();
